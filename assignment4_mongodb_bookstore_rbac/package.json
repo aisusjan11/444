@@ -1,0 +1,37 @@
+{
+  "name": "assignment4-mongodb-bookstore-rbac",
+  "version": "1.0.0",
+  "description": "Assignment 4: MVC Bookstore API (Books + Orders) with JWT Auth + RBAC (admin-only write)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "rbac",
+    "bcrypt",
+    "crud",
+    "assignment4",
+    "mongoose",
+    "jwt",
+    "mongodb",
+    "security",
+    "assignment3",
+    "express"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "joi": "^17.13.3",
+    "morgan": "^1.10.0",
+    "mongoose": "^8.9.1",
+    "jsonwebtoken": "^9.0.2",
+    "bcrypt": "^5.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Bookstore (MVC + JWT + RBAC)</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    h1 { margin-bottom: 8px; }
+    .muted { color: #666; font-size: 14px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+    .card { border: 1px solid #ddd; border-radius: 10px; padding: 14px; }
+    label { display: block; font-size: 13px; margin-top: 10px; }
+    input, select { width: 100%; padding: 8px; margin-top: 4px; }
+    button { padding: 8px 12px; margin-top: 12px; cursor: pointer; }
+    ul { padding-left: 18px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .pill { display:inline-block; padding: 2px 8px; border-radius: 999px; background:#f3f3f3; font-size:12px; }
+    pre { background: #f7f7f7; padding: 10px; border-radius: 8px; overflow:auto; }
+  </style>
+</head>
+<body>
+  <h1>Online Bookstore</h1>
+  <div class="muted">
+    Assignment 4 demo UI. <b>GET</b> routes are public. <b>POST/PUT/DELETE</b> require an <span class="pill">admin</span> JWT token.
+  </div>
+
+  <div class="grid" style="margin-top: 14px;">
+    <div class="card">
+      <h2>Auth</h2>
+
+      <div class="row">
+        <div>
+          <h3 style="margin: 8px 0;">Register</h3>
+          <form id="registerForm">
+            <label>Email</label>
+            <input id="regEmail" type="email" required />
+            <label>Password</label>
+            <input id="regPassword" type="password" minlength="6" required />
+            <label>Role</label>
+            <select id="regRole">
+              <option value="user">user</option>
+              <option value="admin">admin</option>
+            </select>
+            <button type="submit">Register</button>
+          </form>
+        </div>
+        <div>
+          <h3 style="margin: 8px 0;">Login</h3>
+          <form id="loginForm">
+            <label>Email</label>
+            <input id="loginEmail" type="email" required />
+            <label>Password</label>
+            <input id="loginPassword" type="password" minlength="6" required />
+            <button type="submit">Login</button>
+          </form>
+        </div>
+      </div>
+
+      <label>Saved Token (Bearer)</label>
+      <input id="tokenInput" placeholder="Bearer token will appear here after login" />
+      <button id="saveTokenBtn" type="button">Save Token</button>
+      <button id="clearTokenBtn" type="button">Clear Token</button>
+
+      <h3 style="margin-top: 14px;">Current user</h3>
+      <button id="meBtn" type="button">GET /api/auth/me</button>
+      <pre id="meOut">{}</pre>
+    </div>
+
+    <div class="card">
+      <h2>Books</h2>
+      <form id="bookForm">
+        <label>Title</label>
+        <input id="title" required />
+        <label>Author</label>
+        <input id="author" required />
+        <label>Price</label>
+        <input id="price" type="number" min="0" required />
+        <label>Category</label>
+        <input id="category" required />
+        <label>In stock</label>
+        <select id="inStock">
+          <option value="true">true</option>
+          <option value="false">false</option>
+        </select>
+        <button type="submit">Create Book (admin)</button>
+      </form>
+
+      <h3 style="margin-top: 14px;">All books (public)</h3>
+      <button id="refreshBooks" type="button">Refresh</button>
+      <ul id="books"></ul>
+    </div>
+
+    <div class="card">
+      <h2>Orders</h2>
+      <div class="muted">Create orders requires admin token (for assignment RBAC demo). Use Postman for complex tests.</div>
+
+      <form id="orderForm">
+        <label>Customer name</label>
+        <input id="customerName" required />
+        <label>Customer email</label>
+        <input id="customerEmail" type="email" required />
+        <label>Book ID</label>
+        <input id="bookId" required />
+        <label>Quantity</label>
+        <input id="quantity" type="number" min="1" value="1" required />
+        <button type="submit">Create Order (admin)</button>
+      </form>
+
+      <h3 style="margin-top: 14px;">All orders (public)</h3>
+      <button id="refreshOrders" type="button">Refresh</button>
+      <ul id="orders"></ul>
+    </div>
+
+    <div class="card">
+      <h2>Notes</h2>
+      <div class="muted">
+        If you see <b>401</b> or <b>403</b>, it means you are not logged in or not admin.
+        For grading, use Postman and include successful/failed attempts for <span class="pill">user</span> vs <span class="pill">admin</span>.
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
